@@ -1,26 +1,41 @@
-/**
-* This is the category component used in the home page
-**/
-
 // React native and others libraries imports
 import React, { Component } from 'react';
 import { Image, Dimensions, TouchableOpacity } from 'react-native';
-import { View  } from 'native-base';
+import { View } from 'native-base';
 import { Actions } from 'react-native-router-flux';
-
+import { AsyncStorage } from 'react-native';
 // Our custom files and classes import
 import Text from './Text';
 
+const settings = require('./../services/settings');
+
 export default class CategoryBlock extends Component {
+
+  constructor(props) {
+    super(props);
+    this.state = {
+      division: '',
+      domain: ''
+    }
+  }
+
+  componentWillMount() {
+    settings.getDomain().then(domain => this.setState({ domain }));
+    settings.getDivision().then(division => this.setState({ division }));
+  }
+
   render() {
-    return(
-      <View style={{flex:1}}>
+    let url = this.state.domain + '/category/image?largephoto=1&division=' + this.state.division + '&category=';
+
+    return (
+      <View style={{ flex: 1 }}>
         <TouchableOpacity
           onPress={this._onPress.bind(this)}
           activeOpacity={0.9}
         >
           <View>
-            <Image style={styles.image} source={{uri: this.props.image}} />
+            {/* <Image style={styles.image} source={{uri: url +  this.props.id}} /> */}
+            <Image style={styles.image} source={{ uri: url + this.props.id }} />
             <View style={styles.overlay} />
             <View style={styles.border} />
             <View style={styles.text}>
@@ -34,7 +49,7 @@ export default class CategoryBlock extends Component {
   }
 
   _onPress() {
-    Actions.category({id: this.props.id, title: this.props.title});
+    Actions.category({ id: this.props.id, title: this.props.title });
   }
 }
 

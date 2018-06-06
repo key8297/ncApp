@@ -9,8 +9,6 @@ import { BackHandler } from 'react-native';
 import { Root } from 'native-base';
 import { Scene, Router, Actions } from 'react-native-router-flux';
 
-
-// Our custom files and classes import
 import Home from './page/Home';
 import Search from './page/Search';
 import Cart from './page/Cart';

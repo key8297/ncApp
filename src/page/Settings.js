@@ -1,3 +1,4 @@
+
 /**
 * This is the Login Page
 **/
@@ -32,8 +33,8 @@ export default class Login extends Component {
         password: this.state.password
       })
       .then(async (response) => {
-        let t = AsyncStorage.setItem('@token', response.data.token);
-        let d = AsyncStorage.setItem('@division', response.data.division);
+        let t = await AsyncStorage.setItem('@token', response.data.token);
+        let d = await AsyncStorage.setItem('@division', response.data.division);
         console.log('Login success : ', token);
       })
       .catch(err => {
